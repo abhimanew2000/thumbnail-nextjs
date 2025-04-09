@@ -24,6 +24,7 @@ import {
 } from "~/components/ui/select";
 import { inter, domine } from "~/app/fonts";
 import { getPresignedUrl } from "~/app/actions/aws";
+import { generate, refresh } from "~/app/actions/generate";
 const presets = {
   style1: {
     fontSize: 100,
@@ -71,6 +72,7 @@ const ThumbnailCreator = ({children}:{children:React.ReactNode}) => {
         setLoading(false);
       };
       reader.readAsDataURL(file);
+      await generate();
     }
   };
 
@@ -193,10 +195,11 @@ const ThumbnailCreator = ({children}:{children:React.ReactNode}) => {
             <div className="flex w-full max-w-2xl flex-col items-center gap-5">
               <div className="my-4 flex w-full flex-col items-center gap-3">
                 <button
-                  onClick={() => {
+                  onClick={ async () => {
                     setImageSrc(null);
                     setProcessedImageSrc(null);
                     setCanvasReady(false);
+                    await refresh()
                   }}
                   className="flex items-center gap-2 self-start"
                 >

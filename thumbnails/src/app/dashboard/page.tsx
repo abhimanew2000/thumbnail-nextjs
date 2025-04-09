@@ -6,7 +6,7 @@ import { Button } from "~/components/ui/button";
 import ThumbnailCreator from "~/components/ui/thumbnail-creator";
 import Style from "~/components/ui/style";
 import Recent from "~/components/recent";
-import { env } from "process";
+import { env } from "~/env";
 const Page = async () => {
   const serverSession = await getServerSession(authConfig);
   const user = await db.user.findUnique({
